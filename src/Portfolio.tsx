@@ -198,13 +198,13 @@ export default function Portfolio() {
               </p>
 
               <div className="flex gap-6 pt-4">
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">
+                <a href="https://github.com/sazzad2saad" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">
                   <Github size={28} />
                 </a>
                 <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">
                   <Linkedin size={28} />
                 </a>
-                <a href="mailto:your.email@example.com" className="text-gray-300 hover:text-cyan-400 transition-colors">
+                <a href="mailto:sazzad2saad@gmail.com" className="text-gray-300 hover:text-cyan-400 transition-colors">
                   <Mail size={28} />
                 </a>
               </div>
