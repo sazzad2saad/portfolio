@@ -82,7 +82,7 @@ Your portfolio should now be running at **http://localhost:3000**
 Feel free to connect with me:  
 
 - GitHub: [sazzad2saad](https://github.com/sazzad2saad)  
-- Email: mailto:sazzad2saad@gmail.com  
+- Email: sazzad2saad@gmail.com  
 
 ---
 
