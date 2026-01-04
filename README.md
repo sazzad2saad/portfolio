@@ -38,7 +38,7 @@ This portfolio project includes:
 
 ## 🌐 Live Demo
 
-Check out my live portfolio here: **[YourWebsiteLink.com](https://YourWebsiteLink.com)**
+Check out my live portfolio here: **[Sazzad2saad](https://sazzad2saad.netlify.app/)**
 
 ## 📦 Installation & Running Locally
 
@@ -81,9 +81,9 @@ Your portfolio should now be running at **http://localhost:3000**
 
 Feel free to connect with me:  
 
-- GitHub: [Your GitHub](https://github.com/sazzad2saad)  
-- Email: sazzad2saad@gmail.com  
+- GitHub: [sazzad2saad](https://github.com/sazzad2saad)  
+- Email: mailto:sazzad2saad@gmail.com  
 
 ---
 
-Made with ❤️ by **Sazzadur Rahman Saad**
+Made by **Sazzadur Rahman Saad**
