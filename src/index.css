@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    /* LIGHT MODE (sage) */
+    --bg-main: linear-gradient(
+      135deg,
+      #f0f4f0,
+      #ecfdf5,
+      #dce7dc
+    );
+    --bg-card: #ffffff;
+    --text-main: #111827;
+    --text-muted: #4b5563;
+    --accent: #6b8e6b;
+  }
+
+  .dark {
+    /* DARK MODE (EXACT MATCH) */
+    --bg-main: linear-gradient(
+      135deg,
+      #020617,
+      #1e3a8a,
+      #020617
+    );
+    --bg-card: rgba(15, 23, 42, 0.6);
+    --text-main: #f8fafc;
+    --text-muted: #bfdbfe;
+    --accent: #38bdf8;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg-main);
+    color: var(--text-main);
+  }
+}
