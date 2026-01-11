@@ -1,289 +1,247 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Mail, ExternalLink, ChevronDown } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
 
 export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      
-      const sections = ['home', 'about', 'projects', 'skills', 'contact'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // BUTTON STYLES (MATCHED)
+  const baseBtn =
+    "px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105";
+
+  const primaryDark =
+    "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/50 hover:shadow-blue-400/60";
+
+  const primaryLight =
+    "bg-[var(--accent)] text-white shadow-lg shadow-[rgba(107,142,107,0.4)]";
+
+  const outlineDark =
+    "border-2 border-blue-400 text-blue-300 hover:bg-blue-500/10";
+
+  const outlineLight =
+    "border-2 border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10";
 
   const projects = [
     {
-        title: "Personal Portfolio Website",
-        description: "A responsive personal portfolio built with React and Tailwind CSS.",
-        tech: ["React", "TypeScript", "Tailwind CSS"],
-        link: "#"
+      title: "Flavixor",
+      description:
+        "A modern, mobile-first restaurant website built with React, featuring a clean, responsive UI, Firebase authentication, and MongoDB backend, deployed on Render for production.",
+      tech: ["React", "JavaScript", "Tailwind CSS", "Firebase", "MongoDB", "Render"],
+      link: "https://flavixor.netlify.app/",
     },
     {
-        title: "Student Management System (C)",
-        description: "A command-line program to manage student records using file handling.",
-        tech: ["C", "File Handling"],
-        link: "#"
+      title: "Personal Portfolio Website",
+      description:
+        "A developer portfolio built with React and TypeScript, showcasing projects, skills, and contact information with dark/light mode support and responsive design.",
+      tech: ["React", "TypeScript", "Tailwind CSS"],
+      link: "https://sazzad2saad.netlify.app/",
     },
     {
-        title: "Simple Web Tools",
-        description: "Small frontend tools like calculators, forms, and landing pages.",
-        tech: ["HTML", "CSS", "JavaScript"],
-        link: "#"
-    }
+      title: "Invoice Generator",
+      description:
+        "A desktop Python app for generating professional PDF invoices with automatic calculations, invoice numbering, and a clean layout. Built with Tkinter for GUI and ReportLab for PDF creation, packaged as a Windows executable.",
+      tech: ["Python", "Tkinter", "ReportLab", "PyInstaller"],
+      link: "https://github.com/sazzad2saad/pdf-generator-app.git",
+    },
   ];
 
-
   const skills = [
-    { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"] },
-    { category: "Programming", items: ["C/C++", "Python", "Basic Data Structures", "Problem Solving"] },
-    { category: "Tools", items: ["Git", "VS Code", "Figma (Basic)"] },
-    { category: "Soft Skills", items: ["Communication", "Time Management", "Learning Fast"] }
+    {
+      category: "Frontend",
+      items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Tailwind CSS"],
+    },
+    {
+      category: "Programming",
+      items: ["Python (OOP)", "C", "C++", "Basic Data Structures"],
+    },
+    {
+      category: "Tools & Frameworks",
+      items: ["Git", "GitHub", "VS Code", "MongoDB", "Firebase", "PyInstaller", "ReportLab", "Render"],
+    },
+    {
+      category: "Soft Skills",
+      items: ["Communication", "Time Management", "Fast Learner", "Problem Solving"],
+    },
   ];
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Portfolio
-            </div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`transition-colors ${
-                    activeSection === item.toLowerCase()
-                      ? 'text-cyan-400'
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen transition-colors duration-300">
+      {/* NAVBAR */}
+      <header className="fixed top-0 w-full z-50 bg-[var(--bg)]/80 backdrop-blur border-b border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="font-bold text-xl">Saad.dev</h1>
 
-            {/* Mobile Menu Button */}
+          <div className="flex items-center gap-6">
+            <button onClick={() => scrollToSection("projects")}>Projects</button>
+            <button onClick={() => scrollToSection("contact")}>Contact</button>
+
             <button
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setDark(!dark)}
+              className="p-2 rounded-full border border-white/20"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {dark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-slate-900 border-t border-slate-700">
-            <div className="px-4 py-4 space-y-3">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className="block w-full text-left py-2 text-gray-300 hover:text-cyan-400 transition-colors"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
+      {/* HERO */}
+      <section className="pt-40 pb-32 px-4 text-center">
+        <h2 className="text-5xl font-bold mb-6">
+          Hi, I’m <span className="text-[var(--accent)]">Saad</span>
+        </h2>
 
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-4">
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="mb-8 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-4">
-                Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Sazzadur Rahman Saad
-            </span>
-            </h1>
+        <p className="max-w-xl mx-auto text-[var(--text-muted)] mb-10">
+          Junior Web Developer from Dhaka, building clean & modern web interfaces.
+        </p>
 
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
-            Junior Web Developer | React & JavaScript
-            </p>
-            
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
-            I build clean, responsive websites and web applications using modern tools.
-            I'm focused on writing simple, maintainable code and delivering work on time.
-            </p>
-
-            <div className="flex justify-center gap-4 flex-wrap">
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
-              >
-                View Projects
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-3 border-2 border-cyan-500 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all"
-              >
-                Contact Me
-              </button>
-            </div>
-          </div>
+        <div className="flex justify-center gap-6">
           <button
-            onClick={() => scrollToSection('about')}
-            className="mt-16 animate-bounce inline-block"
+            onClick={() => scrollToSection("projects")}
+            className={`${baseBtn} ${dark ? primaryDark : primaryLight}`}
           >
-            <ChevronDown size={32} className="text-cyan-400" />
+            View Projects
+          </button>
+
+          <button
+            onClick={() => scrollToSection("contact")}
+            className={`${baseBtn} ${dark ? outlineDark : outlineLight}`}
+          >
+            Contact Me
           </button>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">About Me</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              {/* Profile Photo */}
-              <div className="flex justify-center md:justify-start mb-8">
-                <div className="relative">
-                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 p-1">
-                    <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
-                      <img
-                        src="https://i.ibb.co.com/fYNp1KMn/Chat-GPT-Image-Dec-27-2025-12-46-13-AM.png"
-                        alt="Profile"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">👋</span>
-                  </div>
-                </div>
-              </div>
-              
-              <p className="text-lg text-gray-300 leading-relaxed">
-                I'm a passionate junior web developer who enjoys turning ideas into real, usable websites.
-                I focus on clean design, responsive layouts, and writing understandable code.
-              </p>
-
-              <p className="text-lg text-gray-300 leading-relaxed">
-                I’m continuously learning modern web technologies like React, Tailwind CSS, and TypeScript.
-                I enjoy solving problems, improving my skills every day, and working closely with clients
-                to deliver exactly what they need.
-              </p>
-
-              <div className="flex gap-6 pt-4">
-                <a href="https://github.com/sazzad2saad" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">
-                  <Github size={28} />
-                </a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">
-                  <Linkedin size={28} />
-                </a>
-                <a href="mailto:sazzad2saad@gmail.com" className="text-gray-300 hover:text-cyan-400 transition-colors">
-                  <Mail size={28} />
-                </a>
-              </div>
+      {/* ABOUT */}
+      <section id="about" className="py-24 px-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div className="flex justify-center">
+            <div className="w-56 h-56 rounded-full bg-[var(--accent)] p-1">
+              <img
+                src="https://i.ibb.co.com/fYNp1KMn/Chat-GPT-Image-Dec-27-2025-12-46-13-AM.png"
+                alt="Saad"
+                className="w-full h-full rounded-full object-cover bg-[var(--bg-card)]"
+              />
             </div>
-            <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-2xl p-8 backdrop-blur-sm border border-cyan-500/30">
-              <h3 className="text-2xl font-bold mb-6">Quick Facts</h3>
-              <ul className="space-y-4 text-gray-300">
-                <li className="flex items-start">
-                    <span className="text-cyan-400 mr-3">▹</span>
-                    <span>Based in Dhaka, Bangladesh</span>
-                </li>
-                <li className="flex items-start">
-                    <span className="text-cyan-400 mr-3">▹</span>
-                    <span>Junior / Entry-level Web Developer</span>
-                </li>
-                <li className="flex items-start">
-                    <span className="text-cyan-400 mr-3">▹</span>
-                    <span>Focused on React & modern frontend</span>
-                </li>
-                <li className="flex items-start">
-                    <span className="text-cyan-400 mr-3">▹</span>
-                    <span>Available for freelance & remote work</span>
-                </li>
-              </ul>
+          </div>
 
+          <div>
+            <h3 className="text-4xl font-bold mb-6">About Me</h3>
+            <p className="text-[var(--text-muted)] mb-4">
+              I'm a passionate junior web developer who enjoys turning ideas into real, usable websites. I focus on clean design, responsive layouts, and writing understandable code.
+            </p>
+            <p className="text-[var(--text-muted)] mb-6">
+              I’m continuously learning modern web technologies like React, Tailwind CSS, and TypeScript. I enjoy solving problems, improving my skills every day, and working closely with clients to deliver exactly what they need.
+            </p>
+
+            <div className="flex gap-6">
+              <a href="https://github.com/sazzad2saad/" target="_blank">
+                <Github />
+              </a>
+              <a href="https://linkedin.com" target="_blank">
+                <Linkedin />
+              </a>
+              <a href="mailto:sazzad2saad@gmail.com">
+                <Mail />
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="min-h-screen py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">Featured Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* PROJECTS */}
+      <section id="projects" className="py-24 px-4 bg-[var(--bg-alt)]">
+        <div className="max-w-6xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-12">Projects</h3>
+
+          <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-slate-800/50 rounded-xl p-6 backdrop-blur-sm border border-slate-700 hover:border-cyan-500/50 transition-all hover:transform hover:scale-105"
-              >
-                <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <a
-                  href={project.link}
-                  className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+              <a href={project.link} target="_blank" key={index}>
+                <div
+                  className={`rounded-xl p-6 transition-all transform hover:scale-105 border backdrop-blur-md flex flex-col h-full ${
+                    dark
+                      ? "bg-slate-800/60 border-slate-700 hover:shadow-lg hover:shadow-cyan-500/40"
+                      : "bg-[#f7f9f0]/50 border-[#d3e1c0] hover:bg-[#f0f4e8]/60 hover:shadow-lg hover:shadow-[#b5d48c]/30"
+                  }`}
                 >
-                  View Project <ExternalLink size={16} className="ml-2" />
-                </a>
-              </div>
+                  <h3
+                    className={`text-2xl font-bold mb-3 ${
+                      dark ? "text-white" : "text-black"
+                    }`}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    className={`mb-4 leading-relaxed text-left flex-1 ${
+                      dark ? "text-gray-400" : "text-gray-800"
+                    }`}
+                  >
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {project.tech.map((tech, i) => (
+                      <span
+                        key={i}
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          dark
+                            ? "bg-cyan-500/20 text-cyan-400"
+                            : "bg-[#b5d48c] text-[#386641]"
+                        }`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="min-h-screen flex items-center py-20 px-4">
-        <div className="max-w-6xl mx-auto w-full">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">Skills & Expertise</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* SKILLS */}
+      <section id="skills" className="py-24 px-4 bg-[var(--bg-alt)]">
+        <div className="max-w-6xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-12">Skills</h3>
+
+          <div className="grid md:grid-cols-4 gap-8">
             {skills.map((skillGroup, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl p-6 backdrop-blur-sm border border-slate-700"
+                className={`rounded-xl p-6 transition-all transform hover:scale-105 border backdrop-blur-md ${
+                  dark
+                    ? "bg-slate-800/60 border-slate-700 hover:shadow-lg hover:shadow-cyan-500/40"
+                    : "bg-[#f7f9f0]/50 border-[#d3e1c0] hover:bg-[#f0f4e8]/60 hover:shadow-lg hover:shadow-[#b5d48c]/30"
+                }`}
               >
-                <h3 className="text-xl font-bold mb-4 text-cyan-400">{skillGroup.category}</h3>
+                <h3
+                  className={`text-xl font-bold mb-4 ${
+                    dark ? "text-cyan-400" : "text-black"
+                  }`}
+                >
+                  {skillGroup.category}
+                </h3>
                 <ul className="space-y-2">
                   {skillGroup.items.map((skill, i) => (
-                    <li key={i} className="text-gray-300 flex items-center">
-                      <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                    <li
+                      key={i}
+                      className={`flex items-center ${
+                        dark ? "text-gray-300" : "text-gray-800"
+                      }`}
+                    >
+                      <span
+                        className={`w-2 h-2 rounded-full mr-3 ${
+                          dark ? "bg-cyan-400" : "bg-[#b5d48c]"
+                        }`}
+                      ></span>
                       {skill}
                     </li>
                   ))}
@@ -294,54 +252,61 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center py-20 px-4">
-        <div className="max-w-4xl mx-auto w-full text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Work Together</h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!
-          </p>
-          <div className="bg-slate-800/50 rounded-2xl p-8 backdrop-blur-sm border border-slate-700 max-w-2xl mx-auto">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-left mb-2 text-gray-300">Name</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 transition-colors"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label className="block text-left mb-2 text-gray-300">Email</label>
-                <input
-                  type="email"
-                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 transition-colors"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-left mb-2 text-gray-300">Message</label>
-                <textarea
-                  rows={5}
-                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 transition-colors resize-none"
-                  placeholder="Your message..."
-                ></textarea>
-              </div>
-              <button className="w-full px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
-                Send Message
-              </button>
-            </div>
-          </div>
+      {/* CONTACT */}
+      <section id="contact" className="py-24 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-6">Let’s Work Together</h3>
+
+          <form className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
+              dark
+                ? "bg-[var(--bg-card)] border-white/20"
+                : "bg-white/30 border-gray-400"
+            }`}
+          >
+            <input
+              placeholder="Your Name"
+              className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
+                dark
+                  ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
+                  : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
+              }`}
+            />
+
+            <input
+              placeholder="Email"
+              className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
+                dark
+                  ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
+                  : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
+              }`}
+            />
+
+            <textarea
+              rows={5}
+              placeholder="Message"
+              className={`w-full px-4 py-3 rounded-lg transition-all outline-none resize-none ${
+                dark
+                  ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
+                  : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
+              }`}
+            />
+
+
+            <button
+              type="submit"
+              className={`w-full py-3 rounded-lg font-semibold ${
+                dark ? primaryDark : primaryLight
+              }`}
+            >
+              Send Message
+            </button>
+          </form>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-8 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400">
-            © 2024 Sazzadur Rahman Saad. Built with React & Tailwind CSS.
-          </p>
-        </div>
+      {/* FOOTER */}
+      <footer className="py-8 text-center text-[var(--text-muted)]">
+        © {new Date().getFullYear()} Sazzadur Rahman Saad
       </footer>
     </div>
   );
