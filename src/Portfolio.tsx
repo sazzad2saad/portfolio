@@ -149,7 +149,7 @@ export default function Portfolio() {
               <a href="https://linkedin.com" target="_blank">
                 <Linkedin />
               </a>
-              <a href="mailto:sazzad2saad@gmail.com">
+              <a href="mailto:sazzad2saad@gmail.com" target="_blank">
                 <Mail />
               </a>
             </div>
