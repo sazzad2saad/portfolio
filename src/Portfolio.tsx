@@ -4,6 +4,13 @@ import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
@@ -70,6 +77,32 @@ export default function Portfolio() {
       items: ["Communication", "Time Management", "Fast Learner", "Problem Solving"],
     },
   ];
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("idle");
+
+    try {
+      const res = await fetch("http://localhost:5000/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
@@ -257,13 +290,18 @@ export default function Portfolio() {
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-4xl font-bold mb-6">Let’s Work Together</h3>
 
-          <form className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
+          <form 
+          onSubmit={handleContactSubmit}
+          className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
               dark
                 ? "bg-[var(--bg-card)] border-white/20"
                 : "bg-white/30 border-gray-400"
             }`}
           >
             <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
               placeholder="Your Name"
               className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
                 dark
@@ -273,6 +311,10 @@ export default function Portfolio() {
             />
 
             <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
               placeholder="Email"
               className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
                 dark
@@ -283,6 +325,9 @@ export default function Portfolio() {
 
             <textarea
               rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
               placeholder="Message"
               className={`w-full px-4 py-3 rounded-lg transition-all outline-none resize-none ${
                 dark
@@ -291,14 +336,25 @@ export default function Portfolio() {
               }`}
             />
 
+            {status === "success" && (
+              <p className="text-green-500 text-sm">Message sent successfully!</p>
+            )}
+
+            {status === "error" && (
+              <p className="text-red-500 text-sm">
+                Something went wrong. Please try again.
+              </p>
+            )}
+
 
             <button
               type="submit"
+              disabled={loading}
               className={`w-full py-3 rounded-lg font-semibold ${
                 dark ? primaryDark : primaryLight
               }`}
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
