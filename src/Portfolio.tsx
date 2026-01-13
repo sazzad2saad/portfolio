@@ -190,6 +190,7 @@ export default function Portfolio() {
         </div>
       </section>
 
+      
       {/* PROJECTS */}
       <section id="projects" className="py-24 px-4 bg-[var(--bg-alt)]">
         <div className="max-w-6xl mx-auto text-center">
