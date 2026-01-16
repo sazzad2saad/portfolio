@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
 
+import { toast, Toaster } from 'sonner';
+
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
 
@@ -92,6 +94,7 @@ export default function Portfolio() {
       });
 
       console.log("submitted");
+      toast.success("Message sent successfully!");
 
       if (!res.ok) throw new Error("Request failed");
 
@@ -100,6 +103,7 @@ export default function Portfolio() {
       setEmail("");
       setMessage("");
     } catch (err) {
+      toast.error("Something went wrong. Please try again.");
       console.log({err});
       console.error(err);
       setStatus("error");
@@ -111,6 +115,9 @@ export default function Portfolio() {
 
   return (
     <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen transition-colors duration-300">
+      {/* Toaster for notifications */}
+      <Toaster position="bottom-right" richColors />
+
       {/* NAVBAR */}
       <header className="fixed top-0 w-full z-50 bg-[var(--bg)]/80 backdrop-blur border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -169,12 +176,6 @@ export default function Portfolio() {
               />
             </div>
           </div>
-
-          {/* <div className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
-              dark
-                ? "bg-[var(--bg-card)] border-white/20"
-                : "bg-white/30 border-gray-400"
-            }`}> */}
 
           <div className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
               dark
@@ -351,7 +352,7 @@ export default function Portfolio() {
               }`}
             />
 
-            {status === "success" && (
+            {/* {status === "success" && (
               <p className="text-green-500 text-sm">Message sent successfully!</p>
             )}
 
@@ -359,7 +360,7 @@ export default function Portfolio() {
               <p className="text-red-500 text-sm">
                 Something went wrong. Please try again.
               </p>
-            )}
+            )} */}
 
 
             <button
