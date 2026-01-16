@@ -81,36 +81,34 @@ export default function Portfolio() {
   ];
 
   const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setStatus("idle");
+  e.preventDefault();
+  setLoading(true);
+  setStatus("idle");
 
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, message }),
+    });
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
-      });
+    if (!res.ok) throw new Error("Request failed");
 
-      console.log("submitted");
-      toast.success("Message sent successfully!");
+    // Move toast here so it only triggers on actual success
+    toast.success("Message sent successfully!");
+    setStatus("success");
+    setName("");
+    setEmail("");
+    setMessage("");
+  } catch (err) {
+    toast.error("Something went wrong. Please try again.");
+    console.error(err);
+    setStatus("error");
+  } finally {
+    setLoading(false);
+  }
+};
 
-      if (!res.ok) throw new Error("Request failed");
-
-      setStatus("success");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch (err) {
-      toast.error("Something went wrong. Please try again.");
-      console.log({err});
-      console.error(err);
-      setStatus("error");
-    } finally {
-      setLoading(false);
-    }
-  };
 
 
   return (
@@ -176,6 +174,7 @@ export default function Portfolio() {
               />
             </div>
           </div>
+
 
           <div className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
               dark
