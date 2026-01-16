@@ -166,7 +166,17 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div>
+          {/* <div className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
+              dark
+                ? "bg-[var(--bg-card)] border-white/20"
+                : "bg-white/30 border-gray-400"
+            }`}> */}
+
+          <div className={`p-8 rounded-2xl border space-y-6 text-left transition-all backdrop-blur-md ${
+              dark
+                ? "bg-[var(--bg-card)] border-white/20"
+                : "bg-white/30 border-gray-400"
+            }`}>
             <h3 className="text-4xl font-bold mb-6">About Me</h3>
             <p className="text-[var(--text-muted)] mb-4">
               I'm a passionate junior web developer who enjoys turning ideas into real, usable websites. I focus on clean design, responsive layouts, and writing understandable code.
