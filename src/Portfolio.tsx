@@ -9,7 +9,6 @@ export default function Portfolio() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
 
   useEffect(() => {
@@ -42,14 +41,14 @@ export default function Portfolio() {
       description:
         "A modern, mobile-first restaurant website built with React, featuring a clean, responsive UI, Firebase authentication, and MongoDB backend, deployed on Render for production.",
       tech: ["React", "JavaScript", "Tailwind CSS", "Firebase", "MongoDB", "Render"],
-      link: "https://flavixor.netlify.app/",
+      link: "https://flavixor.vercel.app/",
     },
     {
       title: "Personal Portfolio Website",
       description:
         "A developer portfolio built with React and TypeScript, showcasing projects, skills, and contact information with dark/light mode support and responsive design.",
       tech: ["React", "TypeScript", "Tailwind CSS"],
-      link: "https://sazzad2saad.netlify.app/",
+      link: "https://sazzad2saad.vercel.app/",
     },
     {
       title: "Invoice Generator",
