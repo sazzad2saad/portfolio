@@ -83,12 +83,15 @@ export default function Portfolio() {
     setLoading(true);
     setStatus("idle");
 
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/contact`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
+
+      console.log("submitted");
 
       if (!res.ok) throw new Error("Request failed");
 
@@ -97,6 +100,7 @@ export default function Portfolio() {
       setEmail("");
       setMessage("");
     } catch (err) {
+      console.log({err});
       console.error(err);
       setStatus("error");
     } finally {
@@ -314,7 +318,7 @@ export default function Portfolio() {
               onChange={(e) => setName(e.target.value)}
               required
               placeholder="Your Name"
-              className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
+              className={`w-full px-4 py-3 rounded-lg border transition-all outline-none ${
                 dark
                   ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
                   : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
@@ -327,7 +331,7 @@ export default function Portfolio() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Email"
-              className={`w-full px-4 py-3 rounded-lg transition-all outline-none ${
+              className={`w-full px-4 py-3 rounded-lg border transition-all outline-none ${
                 dark
                   ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
                   : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
@@ -340,7 +344,7 @@ export default function Portfolio() {
               onChange={(e) => setMessage(e.target.value)}
               required
               placeholder="Message"
-              className={`w-full px-4 py-3 rounded-lg transition-all outline-none resize-none ${
+              className={`w-full px-4 py-3 rounded-lg border transition-all outline-none resize-none ${
                 dark
                   ? "bg-[var(--bg-card)] border-gray-600 placeholder-gray-400 focus:border-[var(--accent)] focus:shadow-md focus:shadow-cyan-500/20 text-white"
                   : "bg-white/70 border-gray-500 placeholder-gray-700 focus:border-[var(--accent)] focus:shadow-md focus:shadow-[#b5d48c]/30 text-black"
